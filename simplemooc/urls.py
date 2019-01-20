@@ -16,11 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from simplemooc.core.views import home,contact
-from simplemooc.courses.views import course
+from simplemooc.courses.views import index,details
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home, name="home"),
     path('contato/',contact, name="contact"),
-    path('cursos/',course, name="course"),
+    path('cursos/',index, name="index"),
+    path('cursos/<int:pk>',details, name="details"),
 ]
+
+if settings.DEBUG:
+	urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
