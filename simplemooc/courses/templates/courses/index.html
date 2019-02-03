@@ -14,9 +14,9 @@
 <div class="pure-g-r content-ribbon">
     <div class="pure-u-1-3">
         <div class="l-box">
-        	<a href="">
+        	<a href="{{ course.get_absolute_url}}">
         		{%if course.image%}
-        		<img src="{{course.image.url}}" alt="{{course.name}}">
+        		<img src="{{course.image.url }}" alt="{{course.name}}">
         		{%else%}
         		<img src="{% static 'img/course-image.png'%}" alt="{{course.name}}">
         		{%endif%}
@@ -25,7 +25,8 @@
     </div>
         <div class="pure-u-2-3">
         	<div class="l-box">
-        		<h4 class="content-subhead"><a href="" title="">{{course.name}}</a></h4>
+        		<h4 class="content-subhead">
+        			<a href="{{ course.get_absolute_url }}" title="">{{course.name}}</a></h4>
         			{{course.description|linebreaks}}
         	</div>
         	
