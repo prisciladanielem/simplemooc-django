@@ -25,7 +25,8 @@ urlpatterns = [
     path('',home, name="home"),
     path('contato/',contact, name="contact"),
     path('cursos/',index, name="index"),
-    path('cursos/<int:pk>',details, name="details"),
+    #path('cursos/<str:pk>',details, name="details"),
+    path('cursos/<str:slug>/',details, name="details"),
 ]
 
 if settings.DEBUG:
