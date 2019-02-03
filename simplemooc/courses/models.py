@@ -19,6 +19,12 @@ class Course(models.Model):
 	#Função para mostrar o nome dos cursos no admin do django
 	def __str__(self):
 		return self.name
+
+	#Função que permite adiciona-la no html e ela reconhecer os cursos nos links	
+	@models.permalink	
+	def get_absolute_url(self):
+		return('details',(),({'slug':self.slug}))
+
 	#Corrige o nome no botão Adicionar course, para adicionar curso
 	class Meta:
 		verbose_name = 'Curso'
