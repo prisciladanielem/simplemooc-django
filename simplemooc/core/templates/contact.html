@@ -12,4 +12,26 @@
             </ul>
         </div>
     </div>
+    <div class="pure-g-r content-ribbon">
+        <div class="pure-u-1">
+            <p>Se preferir preencha o formulário abaixo e o mais breve possível, retornaremos o contato.</p>
+            <form action="#contato" class="pure-form pure-form-aligned"" method="POST">
+                 {% csrf_token %}
+                <fieldset>
+                    {%for field in form %}
+                    <div class="pure-control-group"> 
+                        {{field.label_tag}}
+                        {{ field }}
+                </div>
+                    {%endfor%}
+                    <div class="pure-controls">
+                        <button type="submit" class="pure-button pure-button-primary">Enviar</button>
+                    </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    </div>
 {%endblock%}
