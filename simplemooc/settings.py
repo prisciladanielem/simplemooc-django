@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'simplemooc.core',
-    'simplemooc.courses'
+    'simplemooc.courses',
+    'simplemooc.accounts'
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,8 @@ EMAIL_HOST_PASSWORD = 'euamobhradicalmente'
 EMAIL_PORT = 587
 
 CONTACT_EMAIL = 'prisciladanielem@gmail.com'
+
+#Auth
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_URL = 'logout'
