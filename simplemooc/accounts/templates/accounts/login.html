@@ -8,14 +8,17 @@
             <form class="pure-form pure-form-aligned" method="POST">
                 {%csrf_token%}
                 <fieldset>
-                    {{form.non_field_erros}}
+                    {{form.non_field_errors}}
 
                     {%for field in form%}
                     <div class="pure-control-group">
                         {{field.label_tag}}
                         {{field}}
-                        {{field.erros}}
+                        <span class="pure-form-message" style="color: #8B0000"> <strong> {{field.errors}} </strong></span>
                     </div>
+                    {% if form.is_valid%}
+                    <strong> Usuário cadastrado com sucesso!</strong>
+                    {%endif%}
                     {%endfor%}
 
                     <div class="pure-control">
