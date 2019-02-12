@@ -1,37 +1,13 @@
-"""simplemooc URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path
-from simplemooc.core.views import home,contact
-from simplemooc.courses.views import index,details
-from simplemooc.accounts.views import register
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',home, name="home"),
-    path('entrar/', LoginView.as_view(template_name='accounts/login.html') , name='login' ),
-    path('cadastre-se/',register, name="register"),
-    path('contato/',contact, name="contact"),
-    path('cursos/',index, name="index"),
-    #path('cursos/<str:pk>',details, name="details"),
-    path('cursos/<str:slug>/',details, name="details"),
-    
+    path('', include('simplemooc.apps.core.urls')),
+    path('conta/', include('simplemooc.apps.accounts.urls')),
+    path('cursos/', include('simplemooc.apps.courses.urls')),
 ]
 
 if settings.DEBUG:
