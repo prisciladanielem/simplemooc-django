@@ -17,8 +17,13 @@
             <ul>
                 <li class="pure-menu-selected"><a href="{%url 'home'%}">Início</a></li>
                 <li><a href="{%url 'index'%}">Cursos</a></li>
-                <li><a href="{%url 'login'%}">Entrar</a></li>
                 <li><a href="{%url 'contact'%}">Contato</a></li>
+                {%if user.is_authenticated %}
+                <li><a href="{%url 'dashboard'%}">Painel</a></li>
+                <li><a href="{%url 'logout'%}">Sair</a></li>
+                {% else %}
+                <li><a href="{%url 'login'%}">Entrar</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
