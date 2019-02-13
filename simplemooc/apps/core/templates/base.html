@@ -2,37 +2,55 @@
 {%load static%}<!-- Importa o método static, que é o diretório onde ficam os arquivos estáticos (css) -->
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Simple MOOC - Uma simples plataforma de ensino a distância" />
-    <title>Simple MOOC</title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
-    <link rel="stylesheet" href="{%static 'css/styles.css' %}" /> <!-- Tag pra chamar o arquivo css  -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simple MOOC - Uma simples plataforma de ensino a distância" />
+  <title>Simple MOOC</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+  <link rel="stylesheet" href="{%static 'css/styles.css' %}" /><!-- Tag pra chamar o arquivo css  -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="content">
-    <div class="header">
-        <div class="pure-menu pure-menu-open pure-menu-fixed pure-menu-horizontal">
-            <a class="pure-menu-heading" href="">SIMPLE MOOC</a>
-            <ul>
-                <li class="pure-menu-selected"><a href="{%url 'home'%}">Início</a></li>
-                <li><a href="{%url 'index'%}">Cursos</a></li>
-                <li><a href="{%url 'contact'%}">Contato</a></li>
-                {%if user.is_authenticated %}
-                <li><a href="{%url 'dashboard'%}">Painel</a></li>
-                <li><a href="{%url 'logout'%}">Sair</a></li>
-                {% else %}
-                <li><a href="{%url 'login'%}">Entrar</a></li>
-                {% endif %}
-            </ul>
-        </div>
+  <div class="header">
+    <div class="pure-menu pure-menu-open pure-menu-fixed pure-menu-horizontal">
+      <a class="pure-menu-heading" href="">SIMPLE MOOC</a>
+        <ul>
+          <li class="pure-menu-selected"><a href="{%url 'home'%}">Início</a></li>
+          <li><a href="{%url 'index'%}">Cursos</a></li>
+          <li><a href="{%url 'contact'%}">Contato</a></li>
+        </ul>
+        {% if user.is_authenticated %}
+          <div class="dropdown float-right"> 
+                <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">
+                  <img class="rounded-circle" src="{% static 'img/vaquinha.jpg'%}" style="margin-right: 5px;" width="25" height="25" alt="">{{user}}
+               <span class="caret"></span></button>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{%url 'dashboard'%}">Meu painel</a>
+                <a class="dropdown-item" href="#">Editar conta</a>
+                <a class="dropdown-item" href="{%url 'logout'%}">Sair</a>
+              </div>
+          </div>
+          {% else %}
+            <div class="float-right">
+              <a href="{%url 'register'%}" class="btn btn-dark active" role="button" aria-pressed="true">Cadastre-se</a>
+            </div> 
+            <div class="float-right" style="margin-right: 10px;">
+              <a href="{%url 'login'%}" class="btn btn-dark active" role="button" aria-pressed="true">Fazer login</a>
+            </div> 
+          {% endif %}
+     </div>
+  </div>
+  <div class="content">
+    {% block content%} {%endblock%}
+    <div class="footer">
+      Simple MOOC - Uma simples plataforma de ensino a distância
     </div>
-    <div class="content">
-        {% block content%} {%endblock%}
-        <div class="footer">
-            Simple MOOC - Uma simples plataforma de ensino a distância
-        </div>
-</div>
-<script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script>
+  </div>
+  <script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script>
 </body>
 </html>
