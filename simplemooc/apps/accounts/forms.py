@@ -21,3 +21,19 @@ class RegisterForm(UserCreationForm): #Herda de UserCreationForm
             user.save()
         return user
 
+class EditAccountForm(forms.ModelForm): #ModelForm pega os campos do form
+    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        queryset =  User.objects.filter(email=email).exclude(pk=self.instance.pk)
+        if queryset.exists():
+            raise forms.ValidationError('E-mail já cadastrado!')
+        return email
+
+    class Meta:
+        model = User #Form que o modelForm vai pegar  os compos
+        fields = ['username', 'email', 'first_name', 'last_name'] #Campos que serão importados
+
+
+'''Variável instance todo ModelForm tem, e ele indica que estou alterando a instância 
+atual do modelo que está sendo editado '''

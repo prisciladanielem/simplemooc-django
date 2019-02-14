@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import RegisterForm
+from .forms import RegisterForm, EditAccountForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -25,4 +25,19 @@ def register(request):
     'form':form
     }
     template_name = 'accounts/register.html'
+    return render(request, template_name, context)
+
+@login_required
+def edit(request):
+    template_name = 'accounts/edit.html'
+    context = {}
+    if request.method == 'POST':
+        form = EditAccountForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            form = EditAccountForm(instance=request.user) #Está alterando o usuário atual da sessão
+            context['sucess'] = True
+    else:
+        form = EditAccountForm(instance=request.user) # se não for post, formulaŕio vazio
+    context['form'] = form
     return render(request, template_name, context)

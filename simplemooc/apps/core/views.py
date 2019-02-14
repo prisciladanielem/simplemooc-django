@@ -20,4 +20,3 @@ def contact(request):
     template_name = 'contact.html'
 
     return  render(request,template_name,context)
-

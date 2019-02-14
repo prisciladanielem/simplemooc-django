@@ -1,0 +1,26 @@
+{% extends "accounts/dashboard.html" %}
+
+{%block breadcrumb%}
+  {{ block.super }} <!-- Pega o conteúdo que já existe dentro do bloco padrão -->
+  <li> / </li>
+  <li><a href="{%url 'edit'%}">Editar conta</a></li>
+
+{%endblock%}
+
+{% block dashboard_content %}
+  <form class="pure-form pure-form-stacked" method="POST">
+    <fieldset>
+      {{ form.non_field_errors }}
+      {% for field in form %}
+      <div class="pure-control-group" style="padding-left: 113px;">
+        {{ field.label_tag }}
+        {{ field }}
+        {{ field.errors }}
+      </div>
+      {% endfor %}
+      <div class="pure-control-group" style="padding-left: 113px;">
+        <button type="submit" class="pure-button pure-button-primary">Salvar</button>
+      </div>
+    </fieldset>
+  </form>
+{% endblock %}
