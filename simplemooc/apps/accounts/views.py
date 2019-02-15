@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import RegisterForm, EditAccountForm
+from .forms import RegisterForm, EditAccountForm, AddCoursesForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -27,6 +27,7 @@ def register(request):
     template_name = 'accounts/register.html'
     return render(request, template_name, context)
 
+
 @login_required
 def edit(request):
     template_name = 'accounts/edit.html'
@@ -39,5 +40,21 @@ def edit(request):
             context['sucess'] = True
     else:
         form = EditAccountForm(instance=request.user) # se não for post, formulaŕio vazio
+    context['form'] = form
+    return render(request, template_name, context)
+
+
+@login_required
+def addCourse(request):
+    template_name = 'accounts/addCourses.html'
+    context = {}
+    if request.method == 'POST':
+        form = AddCoursesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            context['sucess'] = True
+            form = AddCoursesForm()
+    else:
+        form = AddCoursesForm()
     context['form'] = form
     return render(request, template_name, context)
