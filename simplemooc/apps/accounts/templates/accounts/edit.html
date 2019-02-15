@@ -2,25 +2,28 @@
 
 {%block breadcrumb%}
   {{ block.super }} <!-- Pega o conteúdo que já existe dentro do bloco padrão -->
-  <li> / </li>
-  <li><a href="{%url 'edit'%}">Editar conta</a></li>
-
+  <li class="breadcrumb-item active" aria-current="page"><a href="{%url 'edit'%}">Editar conta</a></li>
 {%endblock%}
 
 {% block dashboard_content %}
   <form class="pure-form pure-form-stacked" method="POST">
+    <h2 class="">Editar conta</h2>
+    {%csrf_token%}
     <fieldset>
       {{ form.non_field_errors }}
       {% for field in form %}
-      <div class="pure-control-group" style="padding-left: 113px;">
+      <div class="pure-control-group">
         {{ field.label_tag }}
         {{ field }}
         {{ field.errors }}
       </div>
       {% endfor %}
-      <div class="pure-control-group" style="padding-left: 113px;">
+      <div class="pure-control-group">
         <button type="submit" class="pure-button pure-button-primary">Salvar</button>
       </div>
+      {%if form.is_valid%}
+      <strong> Dados alterados com sucesso! </strong>
+      {% endif%}
     </fieldset>
   </form>
 {% endblock %}
