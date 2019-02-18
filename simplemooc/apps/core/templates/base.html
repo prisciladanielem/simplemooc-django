@@ -26,7 +26,11 @@
         {% if user.is_authenticated %}
           <div class="dropdown float-right"> 
                 <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">
+                  {%if accounts.image%}
+                  <img class="rounded-circle" src="{{course.image.url}}" style="margin-right: 5px;" width="25" height="25" alt="">{{user}}
+                  {%else%}
                   <img class="rounded-circle" src="{% static 'img/vaquinha.jpg'%}" style="margin-right: 5px;" width="25" height="25" alt="">{{user}}
+                  {%endif%}
                <span class="caret"></span></button>
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
