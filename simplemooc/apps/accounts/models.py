@@ -5,6 +5,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     username = models.CharField('Usuário', max_length=30, unique=True)
     email = models.EmailField('E-mail', unique=True)
     name = models.CharField('Nome', max_length=100, blank=True)
+    image = models.ImageField(upload_to='accounts/images', verbose_name='Imagem', null=True, blank=True)
     is_active = models.BooleanField('Está ativo?', blank=True, default=True)
     is_staff = models.BooleanField('É da equipe?', blank=True, default=False)
     data_joined = models.DateTimeField('Data de entrada',auto_now_add=True)
