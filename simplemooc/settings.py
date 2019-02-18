@@ -138,6 +138,8 @@ EMAIL_PORT = 587
 CONTACT_EMAIL = 'prisciladanielem@gmail.com'
 
 #Auth
+#Auth
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_URL = 'logout'
+AUTH_USER_MODEL = 'accounts.User' #Reconhece o meu model, como o de usuário
