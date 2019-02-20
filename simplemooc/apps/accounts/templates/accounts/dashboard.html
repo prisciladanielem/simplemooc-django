@@ -1,4 +1,5 @@
 {% extends "base.html"%}
+{% extends "user_button.html"%}
 
 {% block content%}
 
@@ -18,7 +19,7 @@
           <li><a href="#">Curso 2</a></li>
           <li class="pure-menu-heading"> Minha conta </li>
           <li><a href="{%url 'edit'%}">Editar Conta</a></li>
-          <li><a href="#">Editar senha </a></li>
+          <li><a href="{%url 'edit_password'%}">Editar senha </a></li>
         </ul>
       </div>
     </div>
@@ -27,8 +28,8 @@
         {% block dashboard_content %}
         <div>
           <h2>Meu painel</h2>
-          <p><strong>Seja bem vindo</strong> {{user.first_name}} {{user.last_name}}</p>
-          <p><strong>Usuário</strong>: {{user}}</p>
+          <p><strong>Seja bem vindo</strong> {{user.name}}</p>
+          <p><strong>Usuário</strong>: {{user.username}}</p>
           <p><strong>E-mail</strong>: {{user.email}}</p>
         </div>
         {% endblock %}
