@@ -12,7 +12,8 @@
       Voltar
     </a></button>
 {%else%}
-  <form class="pure-form pure-form-stacked" method="POST">
+<!-- enctype="multipart/form-data" é necessário sempre que houver upload de imagem -->
+  <form enctype="multipart/form-data"class="pure-form pure-form-stacked" method="POST">
     <h2 class="">Editar conta</h2>
     {%csrf_token%}
     <fieldset>
