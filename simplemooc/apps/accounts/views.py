@@ -4,13 +4,12 @@ from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.decorators import login_required
 from .models import PasswordReset
 from django.contrib.auth.forms import PasswordChangeForm, SetPasswordForm
-# from django.conf import settings
 
 User = get_user_model()
 
 def register(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = RegisterForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save() #salva os dados no banco de dados
             user = authenticate(username = user.username, password = form.cleaned_data['password1'])
@@ -57,7 +56,7 @@ def edit(request):
     template_name = 'accounts/edit.html'
     context = {}
     if request.method == 'POST':
-        form = EditAccountForm(request.POST, instance=request.user)
+        form = EditAccountForm(request.POST, request.FILES, instance=request.user) #O request.FILES faz o upload das imagens
         if form.is_valid():
             form.save()
             form = EditAccountForm(instance=request.user) #Está alterando o usuário atual da sessão
@@ -95,3 +94,4 @@ def addCourse(request):
         form = AddCoursesForm()
     context['form'] = form
     return render(request, template_name, context)
+
