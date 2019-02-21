@@ -53,7 +53,7 @@ class RegisterForm(forms.ModelForm): #Herda de UserCreationForm
 
     class Meta:
         model = User
-        fields = ['name','username', 'email']
+        fields = ['image','name','username', 'email']
 
 class EditAccountForm(forms.ModelForm): #ModelForm pega os campos do form
 
@@ -66,7 +66,7 @@ class EditAccountForm(forms.ModelForm): #ModelForm pega os campos do form
 
     class Meta:
         model = User #Form que o modelForm vai pegar  os compos
-        fields = ['name','username', 'email'] #Campos que serão importados
+        fields = ['name','username', 'email','image'] #Campos que serão importados
 
 
 '''Variável instance todo ModelForm tem, e ele indica que estou alterando a instância 
