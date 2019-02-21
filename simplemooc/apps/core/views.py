@@ -23,11 +23,3 @@ def contact(request):
     template_name = 'contact.html'
 
     return  render(request,template_name,context)
-
-def base(request):
-    accounts = User.objects.all()
-    template_name = 'base.html'
-    context = {
-    'accounts':accounts
-    }
-    return render(request,template_name,context)
