@@ -26,8 +26,8 @@
         {% if user.is_authenticated %}
           <div class="dropdown float-right"> 
                 <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">
-                  {%if accounts.image%}
-                  <img class="rounded-circle" src="{{accounts.image.url}}" style="margin-right: 5px;" width="25" height="25" alt="">{{user}}
+                  {%if user.image%}
+                  <img class="rounded-circle" src="{{ user.image.url }}" style="margin-right: 5px;" width="25" height="25" alt="">{{user}}
                   {%else%}
                   <img class="rounded-circle" src="{% static 'img/vaquinha.jpg'%}" style="margin-right: 5px;" width="25" height="25" alt="">{{user}}
                   {%endif%}
