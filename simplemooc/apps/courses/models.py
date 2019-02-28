@@ -53,7 +53,13 @@ class Enrollment(models.Model):
     created_at = models.DateTimeField('Criado em', auto_now_add=True)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
 
+    #Ativa o aluno - Chamado de Fatmodel, deixa as informações do model no model
+    def active(self):
+        self.status = 1
+        self.save()
+
     class Meta:
         verbose_name = 'Inscrição'
         verbose_name_plural = 'Inscrições'
         unique_together = (('user','course')) #não deixa duplicar, ou sej um aluno pode se cadastrar em somente um curso
+
