@@ -1,6 +1,8 @@
-{% extends "base.html"%}
+{% extends "base.html" %}
 
-{% block content%}
+{% load courses_tags %}
+
+{% block content %}
 
   <div class="pure-g-r content-ribbon">
     <div class="pure-u-1-3">
@@ -12,10 +14,14 @@
         </ol>
       </nav>
       <div class="pure-menu pure-menu-open"> 
-       <a class="pure-menu-heading">Meus Cursos</a>
         <ul>
-          <li><a href="#">Curso 1 </a></li>
-          <li><a href="#">Curso 2</a></li>
+          {% load_my_courses user as enrollments%} <!-- Tag personalizada que recebe o user atual e retorna as incrições do usuário -->
+          <a class="pure-menu-heading">Meus Cursos</a>
+          {%for enrollment in enrollments%}
+          <li><a href="#">{{enrollment.course}} </a></li>
+          {%empty%} <!-- Se o for retornar vazio-->
+          <li>Sem incrições em curso ainda</li>
+          {%endfor%}
           <li class="pure-menu-heading"> Minha conta </li>
           <li><a href="{%url 'edit'%}">Editar Conta</a></li>
           <li><a href="{%url 'edit_password'%}">Editar senha </a></li>
