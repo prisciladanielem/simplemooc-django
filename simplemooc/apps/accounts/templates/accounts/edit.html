@@ -20,11 +20,10 @@
     {%csrf_token%}
     <fieldset>
       <div class="pure-control-group">
+        <p style="font-size:14px">Imagem atual da conta:</p>
         {%if user.image%}
-          <p style="font-size:14px">Imagem atual da conta:</p>
           <img src="{{ user.image.url }}" width="150" height="150" alt="">
         {%else%}
-          <p style="font-size:14px">Imagem atual da conta:</p>
           <img src="{% static 'img/vaquinha.jpg'%}" width="150" height="150" alt="">
         {%endif%}
       </div>
