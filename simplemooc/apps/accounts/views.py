@@ -1,9 +1,15 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from .forms import RegisterForm, PasswordResetForm, EditAccountForm, AddCoursesForm
+
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.decorators import login_required
-from .models import PasswordReset
 from django.contrib.auth.forms import PasswordChangeForm, SetPasswordForm
+
+from django.contrib import messages
+
+from simplemooc.apps.courses.models import Enrollment
+
+from .forms import RegisterForm, PasswordResetForm, EditAccountForm, AddCoursesForm
+from .models import PasswordReset
 
 User = get_user_model()
 
@@ -44,12 +50,13 @@ def password_reset_confirm(request,key):
     context['form'] = form
     return render(request, template_name, context)
 
-
 #Mostra a página somente se o usuário estiver logado
 @login_required
 def dashboard(request):
     template_name = 'accounts/dashboard.html'
-    return render(request, template_name)
+    context = {}
+    # context['enrollments'] = Enrollment.objects.filter(user=request.user) #Pega os dados do usuário atual logado
+    return render(request, template_name, context)
 
 @login_required
 def edit(request):
@@ -59,8 +66,10 @@ def edit(request):
         form = EditAccountForm(request.POST, request.FILES, instance=request.user) #O request.FILES faz o upload das imagens
         if form.is_valid():
             form.save()
-            form = EditAccountForm(instance=request.user) #Está alterando o usuário atual da sessão
-            context['success'] = True
+            # form = EditAccountForm(instance=request.user) #Está alterando o usuário atual da sessão
+            # context['success'] = True
+            messages.success(request, 'Dados alterados com sucesso!')
+            return redirect('dashboard')
     else:
         form = EditAccountForm(instance=request.user) # se não for post, formulaŕio vazio
     context['form'] = form
