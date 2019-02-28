@@ -77,3 +77,16 @@ body .primary-button {
 .ajustesInfo{
     margin-left: 113px;
 }
+
+aside {
+    background: #1f8dd6;
+    padding: 0.3em 1em;
+    border-radius: 3px;
+    color: #fff;
+}
+aside p {
+    margin: 0.4em 0;
+}
+.teste{
+    background-color:#1f8dd6;
+}
