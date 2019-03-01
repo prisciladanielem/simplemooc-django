@@ -11,6 +11,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="{%static 'css/styles.css'%}" />
 </head>
 <body>
@@ -19,34 +20,34 @@
     <div class="pure-menu pure-menu-open pure-menu-fixed pure-menu-horizontal">
       <a class="pure-menu-heading" href="">SIMPLE MOOC</a>
         <ul>
-          <li class="pure-menu-selected"><a href="{%url 'home'%}">Início</a></li>
+          <li class="pure-menu-selected" sty><a href="{%url 'home'%}">Início</a></li>
           <li><a href="{%url 'index'%}">Cursos</a></li>
           <li><a href="{%url 'contact'%}">Contato</a></li>
-        </ul>
-        {% if user.is_authenticated %}
+                  {% if user.is_authenticated %}
           <div class="dropdown float-right"> 
-                <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">
-                  {%if user.image%}
-                  <img class="rounded-circle" src="{{ user.image.url }}" style="margin-right: 5px;" width="25" height="25" alt="">{{user}}
-                  {%else%}
-                  <img class="rounded-circle" src="{% static 'img/vaquinha.jpg'%}" style="margin-right: 5px;" width="25" height="25" alt="">{{user}}
+            <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">
+              {%if user.image%}
+                <img class="rounded-circle" src="{{ user.image.url }}" style="margin-right: 5px;" width="25" height="25" alt="">{{user}}
+              {%else%}
+                <img class="rounded-circle" src="{% static 'img/vaquinha.jpg'%}" style="margin-right: 5px;" width="25" height="25" alt="">{{user}}
                   {%endif%}
-               <span class="caret"></span></button>
-              </a>
+               <span class="caret"></span>
+            </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{%url 'dashboard'%}">Meu painel</a>
+                <a class="dropdown-item teste" href="{%url 'dashboard'%}">Meu painel</a>
                 <a class="dropdown-item" href="{%url 'edit'%}">Editar conta</a>
                 <a class="dropdown-item" href="{%url 'logout'%}">Sair</a>
               </div>
           </div>
           {% else %}
-            <div class="float-right">
-              <a href="{%url 'register'%}" class="btn btn-dark active" role="button" aria-pressed="true">Cadastre-se</a>
+          <div class="float-right">
+            <a href="{%url 'register'%}" class="btn btn-light active" role="button" aria-pressed="true">Cadastre-se</a>
             </div> 
             <div class="float-right" style="margin-right: 10px;">
-              <a href="{%url 'login'%}" class="btn btn-dark active" role="button" aria-pressed="true">Fazer login</a>
+              <a href="{%url 'login'%}" class="btn btn-light active" role="button" aria-pressed="true">Fazer login</a>
             </div> 
           {% endif %}
+        </ul>
      </div>
   </div>
   <div class="content">

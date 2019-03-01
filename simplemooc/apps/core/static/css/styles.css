@@ -7,6 +7,40 @@ body {
     margin: 0 auto;
     line-height: 1.7em;
 }
+aside {
+    background: #1f8dd6;
+    padding: 0.3em 1em;
+    border-radius: 3px;
+    color: #fff;
+}
+aside p {
+    margin: 0.4em 0;
+}
+.button-success,
+.button-error,
+.button-warning,
+.button-secondary {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+.button-success {
+    background: rgb(28, 184, 65); /* this is a green */
+        }
+
+.button-error {
+    background: rgb(202, 60, 60); /* this is a maroon */
+        }
+
+.button-warning {
+background: rgb(223, 117, 20); /* this is an orange */
+        }
+
+.button-secondary {
+            background: rgb(66, 184, 221); /* this is a light blue */
+        }
+
 .l-box {
     padding: 1em;
 }
@@ -22,9 +56,18 @@ body {
     border: none;
     color: #aaa;
 }
+.header .pure-menu-heading {
+    float: left;
+}
+.header ul {
+    float: right;
+}
 body .primary-button {
     background: #02a6eb;
     color: #fff;
+}
+a{
+    color: #000;
 }
 .splash {
     margin: 2em auto 0;
@@ -73,20 +116,18 @@ body .primary-button {
     padding: 1em;
     font-size: 80%;
 }
-
+.inner {
+    padding: 0em 1em;
+}
+.inner p {
+    margin-top: 0;
+}
+.well {
+    border: 1px solid #ddd;
+    padding: 0em 1em 1em 1em;
+    margin-bottom: 1.5em;
+}
 .ajustesInfo{
-    margin-left: 113px;
+    margin-left: 50px;
 }
 
-aside {
-    background: #1f8dd6;
-    padding: 0.3em 1em;
-    border-radius: 3px;
-    color: #fff;
-}
-aside p {
-    margin: 0.4em 0;
-}
-.teste{
-    background-color:#1f8dd6;
-}

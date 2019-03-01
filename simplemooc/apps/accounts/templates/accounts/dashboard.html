@@ -9,34 +9,57 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           {%block breadcrumb%}
-             <li class="breadcrumb-item active" aria-current="page"><a href="{%url 'dashboard'%}">Home</a></li>
+             <li class="breadcrumb-item active" aria-current="page"><a href="{%url 'dashboard'%}"> Meu painel </a></li>
           {%endblock%}
         </ol>
       </nav>
       <div class="pure-menu pure-menu-open"> 
         <ul>
           {% load_my_courses user as enrollments%} <!-- Tag personalizada que recebe o user atual e retorna as incrições do usuário -->
+           <a class="pure-menu-heading">Bem vindo, {{user}}</a>
           <a class="pure-menu-heading">Meus Cursos</a>
           {%for enrollment in enrollments%}
-          <li><a href="#">{{enrollment.course}} </a></li>
+          <li>
+            <a href="#">
+              <i class="fas fa-book"></i> {{enrollment.course}} 
+            </a>
+          </li>
           {%empty%} <!-- Se o for retornar vazio-->
           <li>Sem incrições em curso ainda</li>
           {%endfor%}
           <li class="pure-menu-heading"> Minha conta </li>
-          <li><a href="{%url 'edit'%}">Editar Conta</a></li>
-          <li><a href="{%url 'edit_password'%}">Editar senha </a></li>
+          <li>
+            <a href="{%url 'edit'%}"> 
+              <i class="fas fa-cog"></i> Editar conta
+            </a>
+          </li>
+          <li>
+            <a href="{%url 'edit_password'%}"> 
+              <i class="fas fa-lock"></i> Editar senha 
+            </a>
+          </li>
         </ul>
       </div>
     </div>
     <div class="pure-u-2-3">
       <div class="inner ajustesInfo">
         {% block dashboard_content %}
-        <div>
-          <h2>Meu painel</h2>
-          <p><strong>Seja bem vindo</strong> {{user.name}}</p>
-          <p><strong>Usuário</strong>: {{user.username}}</p>
-          <p><strong>E-mail</strong>: {{user.email}}</p>
-        </div>
+          <h2> Meus cursos </h2>
+          {% for enrollment in enrollments %}
+          <div class="well">
+            <h3>{{enrollment.course}}
+            ({{enrollment.course.start_date | date:'d/m/Y' | default:'Sem data'}})</h3>
+            <p>{{enrollment.course.description | linebreaks}}</p>
+            <div class="pure-controls">
+              <a href="#" class="pure-button pure-button-primary">Acessar</a>
+              <a href="#"class="pure-button button-error">Cancelar</a>
+            </div>
+          </div>
+          {% empty %}
+          <aside class="pure-u-1 alert alert-primary" style="margin-top:20px;">
+        <p>Você não está inscrito em nenhum curso!</p>
+      </aside>
+      {% endfor %}
         {% endblock %}
       </div>
     </div>
