@@ -4,6 +4,8 @@ from django.conf import settings
 import requests
 from django.template.loader import render_to_string
 
+from .models import Comment
+
 from simplemooc.apps.core.mail import send_mail_template, send_mail_contact
 
 class ContactCourse(forms.Form):
@@ -39,3 +41,10 @@ class Contact(forms.Form):
         template_name = 'mailgunTeste.html'
 
         send_mail_contact(e_from, [settings.CONTACT_EMAIL],context, subject, template_name)
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment',]
+    

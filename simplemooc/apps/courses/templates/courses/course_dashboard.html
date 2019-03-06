@@ -1,0 +1,37 @@
+{% extends "accounts/dashboard.html" %}
+
+{% block breadcrumb %}
+{{ block.super }} <!-- Pega o conteúdo que já existe dentro do bloco padrão -->
+  <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'announcements' course.slug %}">{{ course }}</a></li>
+{% endblock %}
+
+{% block menu_options %}
+  <li class="pure-menu-heading">
+    {{ course }}
+  </li>
+  <li>
+    <a href="">
+      <i class="fas fa-video"></i>
+      Aulas e Materiais
+    </a>
+  </li>
+  <li>
+    <a href="">
+      <i class="fas fa-video"></i>
+      Informações
+    </a>
+  </li>
+  <li>
+    <a href="">
+      <i class="fas fa-envelope"></i>
+      Anúncios
+    </a>
+  </li>
+  <li>
+    <a href="">
+      <i class="fas fa-comments"></i>
+      Fórum de dúvidas
+    </a>
+  </li>
+  {{ block.super }}
+{% endblock %}

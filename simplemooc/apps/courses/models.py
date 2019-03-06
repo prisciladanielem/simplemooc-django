@@ -1,8 +1,10 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.conf import settings
 
-User = get_user_model()
+from django.dispatch import receiver
+
+from simplemooc.apps.core.mail import send_mail_template
+
 
 class CourseManager(models.Manager):
     def search(self,query):
@@ -58,8 +60,61 @@ class Enrollment(models.Model):
         self.status = 1
         self.save()
 
+    def approved(self):
+        return self.status == 1
+
     class Meta:
         verbose_name = 'Inscrição'
         verbose_name_plural = 'Inscrições'
         unique_together = (('user','course')) #não deixa duplicar, ou sej um aluno pode se cadastrar em somente um curso
 
+class Announcement(models.Model):
+    course = models.ForeignKey(Course, verbose_name='Curso',
+    related_name='announcements',
+    on_delete=models.CASCADE
+    )
+    title = models.CharField('Título', max_length=100)
+    content = models.TextField('Conteúdo')
+
+    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+    updated_at = models.DateTimeField('Atualizado em', auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Anúncio'
+        verbose_name_plural = 'Anúncios'
+        ordering = ['-created_at']
+
+class Comment(models.Model):
+    announcement = models.ForeignKey(Announcement, verbose_name='Anúncio',
+    related_name='comments',
+    on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Usuário',
+    on_delete=models.CASCADE
+    )
+    comment = models.TextField('Comentário')
+
+    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+    updated_at = models.DateTimeField('Atualizado em', auto_now=True)
+
+    class Meta:
+        verbose_name = "Comentário"
+        verbose_name_plural = "Comentários"
+        ordering = ['created_at']
+
+#gatilho para enviar e-mail sempre que um novo anúncio for criado
+@receiver(models.signals.post_save, sender=Announcement)
+def post_save_announcement(instance, created, **kwargs):
+    if created:
+        subject =   instance.title
+        context = {
+            'announcement':instance
+        }
+        enrollments = Enrollment.objects.filter(course=instance.course,status=1)
+        for enrollment in enrollments:
+            recipient_list = [enrollment.user.email]
+        template_name = 'courses/announcement_mail.html'
+        send_mail_template(subject, template_name, context, recipient_list)
