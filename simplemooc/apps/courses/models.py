@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 
+from django.utils import timezone
+
 from django.dispatch import receiver
 
 from simplemooc.apps.core.mail import send_mail_template
@@ -25,17 +27,72 @@ class Course(models.Model):
     #Função para mostrar o nome dos cursos no admin do django
     def __str__(self):
         return self.name
-
     #Função que permite adiciona-la no html e ela reconhecer os cursos nos links    
     @models.permalink   
     def get_absolute_url(self):
         return('details',(),({'slug':self.slug}))
+
+    #Retorna todas as aulas disponíveis em casa curso
+    def release_lessons(self):
+        today = timezone.now().date()
+        return self.lessons.filter(release_date__gte=today)
 
     #Corrige o nome no botão Adicionar course, para adicionar curso
     class Meta:
         verbose_name = 'Curso'
         verbose_name_plural = 'Cursos' 
         ordering = ['name'] #ordena por ordem crescente ordering = ['-name'] decrescente
+
+class Lesson(models.Model):
+    name = models.CharField('Nome', max_length=100)
+    description = models.TextField('Descrição', blank=True)
+    number = models.IntegerField('Número (ordem)', blank=True, default=0)
+    release_date = models.DateField('Data de liberação', blank=True, null=True)
+
+    course = models.ForeignKey(Course, verbose_name='Curso',
+    related_name='lessons',
+    on_delete=models.CASCADE
+    )
+
+    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+    updated_at = models.DateTimeField('Atualizado em', auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+    def is_available(self):
+        if self.release_date:
+            today = timezone.now().date()
+            return self.release_date >= today
+        return False
+
+    class Meta:
+        verbose_name='Aula'
+        verbose_name_plural = 'Aulas'
+        ordering = ['number']
+
+class Material(models.Model):
+    name = models.CharField('Nome', max_length=100)
+    embedded = models.TextField('Video embedded', blank=True)
+    file = models.FileField(upload_to='lessons/material',blank=True, null=True)
+
+    lesson = models.ForeignKey(Lesson, verbose_name='Aulas',
+    related_name='materiais',
+    on_delete=models.CASCADE
+    )
+
+    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+    updated_at = models.DateTimeField('Atualizado em', auto_now=True)
+
+    def is_embedded(self):
+        return bool(self.embedded)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name='Material'
+        verbose_name_plural = 'Materiais'
 
 class Enrollment(models.Model):
     STATUS_CHOICES = (
