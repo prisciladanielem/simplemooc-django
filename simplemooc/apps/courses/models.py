@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.conf import settings
 
@@ -19,7 +21,7 @@ class Course(models.Model):
     about = models.TextField('Sobre o curso', blank=True)
     start_date = models.DateField('Data de inicio', null=True, blank=True)
     image = models.ImageField(upload_to='courses/images', verbose_name='Imagem', null=True, blank=True)
-    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+    created_at = models.DateTimeField('Criado em', default=datetime.now)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
 
     objects = CourseManager()
@@ -54,7 +56,7 @@ class Lesson(models.Model):
     on_delete=models.CASCADE
     )
 
-    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+    created_at = models.DateTimeField('Criado em', default=datetime.now)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
 
     def __str__(self):
@@ -77,11 +79,11 @@ class Material(models.Model):
     file = models.FileField(upload_to='lessons/material',blank=True, null=True)
 
     lesson = models.ForeignKey(Lesson, verbose_name='Aulas',
-    related_name='materiais',
+    related_name='materials',
     on_delete=models.CASCADE
     )
 
-    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+    created_at = models.DateTimeField('Criado em', default=datetime.now)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
 
     def is_embedded(self):
@@ -109,7 +111,7 @@ class Enrollment(models.Model):
     on_delete=models.CASCADE
     )
     status = models.IntegerField('Situação', choices=STATUS_CHOICES, default=0, blank=True)
-    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+    created_at = models.DateTimeField('Criado em', default=datetime.now)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
 
     #Ativa o aluno - Chamado de Fatmodel, deixa as informações do model no model
@@ -133,7 +135,7 @@ class Announcement(models.Model):
     title = models.CharField('Título', max_length=100)
     content = models.TextField('Conteúdo')
 
-    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+    created_at = models.DateTimeField('Criado em', default=datetime.now)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
 
     def __str__(self):
@@ -154,7 +156,7 @@ class Comment(models.Model):
     )
     comment = models.TextField('Comentário')
 
-    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+    created_at = models.DateTimeField('Criado em', default=datetime.now)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
 
     class Meta:
