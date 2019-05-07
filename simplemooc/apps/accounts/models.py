@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.core.validators import RegexValidator
 from django.db import models
 from django.core import validators
@@ -21,7 +22,7 @@ class User(AbstractBaseUser,PermissionsMixin):
                               )
     is_active = models.BooleanField('Está ativo?', blank=True, default=True)
     is_staff = models.BooleanField('É da equipe?', blank=True, default=False)
-    data_joined = models.DateTimeField('Data de entrada',auto_now_add=True)
+    data_joined = models.DateTimeField('Data de entrada',default=datetime.now)
  
     objects = UserManager()
  
@@ -48,7 +49,7 @@ class PasswordReset(models.Model):
                              on_delete=models.CASCADE
                             )
     key = models.CharField('Chave', max_length=100, unique=True)
-    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+    created_at = models.DateTimeField('Criado em', default=datetime.now)
     confirmed = models.BooleanField('Confirmado?', default=False, blank=True)
 
     def __str__(self):
