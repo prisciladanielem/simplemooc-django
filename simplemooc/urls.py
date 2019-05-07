@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('simplemooc.apps.core.urls')),
     path('conta/', include('simplemooc.apps.accounts.urls')),
     path('cursos/', include('simplemooc.apps.courses.urls')),
+    path('forum/', include('simplemooc.apps.forum.urls')),
 ]
 
 if settings.DEBUG:
