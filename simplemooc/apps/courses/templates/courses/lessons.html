@@ -1,5 +1,10 @@
 {% extends "courses/course_dashboard.html" %}
 
+{% block breadcrumb %}
+{{ block.super }} <!-- Pega o conteúdo que já existe dentro do bloco padrão -->
+  <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'lessons' course.slug %}">Aulas</a></li>
+{% endblock %}
+
 {% block dashboard_content %}
 {% for lesson in lessons %}
   <div class="well">
