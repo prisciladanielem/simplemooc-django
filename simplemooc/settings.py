@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,7 @@ SECRET_KEY = 'ci$fnw=zirwhlzqd@vyqk(jrm#u$1bt0#-+nng^ki3z6-gv2q('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','testserver']
 
 
 # Application definition
@@ -37,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #libs
+    'taggit',
     'simplemooc.apps.core',
     'simplemooc.apps.courses',
-    'simplemooc.apps.accounts'
+    'simplemooc.apps.accounts',
+    'simplemooc.apps.forum'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'simplemooc.urls'
@@ -136,7 +141,7 @@ DEFAULT_FROM_EMAIL = 'Priscila <prisciladanielem@gmail.com>'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'prisciladanielem@gmail.com'
-EMAIL_HOST_PASSWORD = 'euamobhradicalmente'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 
 CONTACT_EMAIL = 'prisciladanielem@gmail.com'
@@ -147,3 +152,13 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_URL = 'logout'
 AUTH_USER_MODEL = 'accounts.User' #Reconhece o meu model, como o de usuário
+
+#Heroku settings
+import dj_database_url
+
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+ALLOWED_HOSTS = ['*']
+
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
